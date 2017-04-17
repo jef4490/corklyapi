@@ -1,5 +1,5 @@
 class BoardSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :title
 
   has_many :teams
   has_many :accounts
