@@ -3,8 +3,11 @@ class BoardsController < ApplicationController
   def index
   end
 
-  def update
+  def add_owner
     byebug
+  end
+
+  def update
     board = Board.find(params[:board][:id])
     Element.where(["board_id = ?", board.id]).delete_all
     board.update(board_params)
