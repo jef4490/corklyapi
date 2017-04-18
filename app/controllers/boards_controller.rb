@@ -3,6 +3,11 @@ class BoardsController < ApplicationController
   def index
   end
 
+  def update
+    board = Board.find(params[:board][:id])
+    Element.where(["board_id = ?", board.id]).delete_all
+  end
+
   def create
     account = Account.find(Auth.decode(request.headers['token'])["account_id"])
     if account
