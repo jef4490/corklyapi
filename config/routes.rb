@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   post 'login', to: "sessions#create"
   get 'boards/:id', to: "boards#show"
   patch 'boards/:id', to: "boards#update"
+  post 'boards/:id', to: "boards#add_owner"
 
 end
