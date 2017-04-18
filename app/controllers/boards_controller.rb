@@ -4,8 +4,11 @@ class BoardsController < ApplicationController
   end
 
   def update
+    byebug
     board = Board.find(params[:board][:id])
     Element.where(["board_id = ?", board.id]).delete_all
+    board.update(board_params)
+    render json: board
   end
 
   def create
