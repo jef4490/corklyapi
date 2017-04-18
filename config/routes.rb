@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   get 'elements/:id', to: "elements#show"
   post 'login', to: "sessions#create"
   get 'boards/:id', to: "boards#show"
+  patch 'boards/:id', to: "boards#update"
 
 end
