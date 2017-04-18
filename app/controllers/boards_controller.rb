@@ -4,7 +4,14 @@ class BoardsController < ApplicationController
   end
 
   def add_owner
-    byebug
+    board = Board.find(params[:id])
+    account = Account.find_by(username: params[:username])
+    if account
+      board.accounts << account
+      render json: {success: "Successfully added owner!"}
+    else
+      render json: {errors: "Unable to add owner!"}
+    end
   end
 
   def update
