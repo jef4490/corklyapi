@@ -1,5 +1,6 @@
 class ElementsController < ApplicationController
   def show
-    render json: {test: "this is a test"}
+    element = Element.find(params[:id])
+    render json: element
   end
 end

@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   post 'register', to: "registrations#create"
   get 'account', to: "accounts#show"
   post 'boards', to: "boards#create"
-  resources :elements
+  get 'elements/:id', to: "elements#show"
 
 end
