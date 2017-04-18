@@ -6,12 +6,16 @@ class BoardsController < ApplicationController
   def create
     account = Account.find(Auth.decode(request.headers['token'])["account_id"])
     if account
-      board = Board.new(board_params)
-      if board.save
-        account.boards << board
-        render json: board
+      if board_params[:id] == nil
+        board = Board.new(board_params)
+        if board.save
+          account.boards << board
+          render json: board
+        else
+          render json: {errors: board.errors}, status: 401
+        end
       else
-        render json: {errors: board.errors}, status: 401
+        Board.update_board(board_params)
       end
     else
       render json: {error: "Couldn't find user"}, status: 401
