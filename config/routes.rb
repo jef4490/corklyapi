@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   post 'boards', to: "boards#create"
   get 'elements/:id', to: "elements#show"
   post 'login', to: "sessions#create"
+  get 'boards/:id', to: "boards#show"
 
 end
