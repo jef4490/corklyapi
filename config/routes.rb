@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   get 'account', to: "accounts#show"
   post 'boards', to: "boards#create"
   get 'elements/:id', to: "elements#show"
+  post 'login', to: "sessions#create"
 
 end
