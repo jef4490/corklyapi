@@ -3,6 +3,13 @@ class BoardsController < ApplicationController
   def index
   end
 
+  def destroy
+    id = params[:id]
+    board = Board.find(params[:id])
+    board.destroy
+    render json: id
+  end
+
   def add_owner
     board = Board.find(params[:id])
     account = Account.find_by(username: params[:username])

@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   get 'boards/:id', to: "boards#show"
   patch 'boards/:id', to: "boards#update"
   post 'boards/:id', to: "boards#add_owner"
+  delete 'boards/:id', to: "boards#destroy"
 
 end
