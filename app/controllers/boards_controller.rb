@@ -15,25 +15,26 @@ class BoardsController < ApplicationController
   end
 
   def update
-    board = Board.find(params[:board][:id])
-    Element.where(["board_id = ?", board.id]).delete_all
-    board.update(board_params)
-    render json: board
+    account = Account.find(Auth.decode(request.headers['token'])["account_id"])
+    if account
+      board = Board.find(params[:board][:id])
+      Element.where(["board_id = ?", board.id]).delete_all
+      board.update(board_params)
+      render json: board
+    else
+      render json: {error: "Couldn't find user"}, status: 401
+    end
   end
 
   def create
     account = Account.find(Auth.decode(request.headers['token'])["account_id"])
     if account
-      if board_params[:id] == nil
-        board = Board.new(board_params)
-        if board.save
-          account.boards << board
-          render json: board
-        else
-          render json: {errors: board.errors}, status: 401
-        end
+      board = Board.new(board_params)
+      if board.save
+        account.boards << board
+        render json: board
       else
-        Board.update_board(board_params)
+        render json: {errors: board.errors}, status: 401
       end
     else
       render json: {error: "Couldn't find user"}, status: 401
@@ -58,6 +59,6 @@ class BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:title, :id,
-      elements_attributes: [:x, :y, :content, :EID])
+      elements_attributes: [:x, :y, :content, :height, :width, :bgcolor, :EID])
   end
 end
