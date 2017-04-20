@@ -5,11 +5,11 @@ class BoardSerializer < ActiveModel::Serializer
   has_many :elements
 
   def created_at
-    object.created_at.strftime("%m/%d/%Y at %T:%M%p")
+    object.created_at.strftime("%-m/%-d/%Y at %I:%M %p")
   end
 
   def updated_at
-    object.updated_at.strftime("%m/%d/%Y at %T:%M%p")
+    object.updated_at.strftime("%-m/%-d/%Y at %I:%M %p")
   end
 
 end
