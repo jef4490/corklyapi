@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'elements/:id', to: "elements#show"
 
   post 'boards', to: "boards#create"
+  get '/boards/slug/:slug', to: "boards#show_public"
   patch 'boards/:id/publish', to: "boards#publish"
   get 'boards/:id', to: "boards#show"
   patch 'boards/:id', to: "boards#update"
