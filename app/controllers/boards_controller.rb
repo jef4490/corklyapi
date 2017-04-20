@@ -61,6 +61,17 @@ class BoardsController < ApplicationController
     end
   end
 
+  def show_public
+    # byebug
+    account = Account.find(Auth.decode(request.headers['token'])["account_id"])
+    if account
+      board = Board.find_by(slug: params[:slug])
+      render json: board
+    else
+      render json: {error: "No board found or board is private"}, status: 401
+    end
+  end
+
   def show
     account = Account.find(Auth.decode(request.headers['token'])["account_id"])
     if account
