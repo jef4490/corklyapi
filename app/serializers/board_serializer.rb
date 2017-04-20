@@ -1,5 +1,5 @@
 class BoardSerializer < ActiveModel::Serializer
-  attributes :id, :title, :created_at, :updated_at, :currentcolor, :slug, :public
+  attributes :id, :title, :created_at, :updated_at, :update_me, :currentcolor, :slug, :public
 
   has_many :accounts, through: :teams
   has_many :elements
@@ -10,6 +10,10 @@ class BoardSerializer < ActiveModel::Serializer
 
   def updated_at
     object.updated_at.strftime("%-m/%-d/%Y at %I:%M %p")
+  end
+
+  def update_me
+    object.updated_at.strftime("%-m/%-d/%Y at %I:%M:%S %p")
   end
 
 end
