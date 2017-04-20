@@ -1,5 +1,5 @@
 class BoardSerializer < ActiveModel::Serializer
-  attributes :id, :title, :created_at, :updated_at, :currentcolor
+  attributes :id, :title, :created_at, :updated_at, :currentcolor, :slug, :public
 
   has_many :accounts, through: :teams
   has_many :elements
