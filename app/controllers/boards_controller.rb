@@ -12,10 +12,10 @@ class BoardsController < ApplicationController
 
   def add_owner
     board = Board.find(params[:id])
-    account = Account.find_by(username: params[:username])
-    if account
-      board.accounts << account
-      render json: {success: "Successfully added owner!"}
+    account = Account.find(params[:account_id])
+    if account && board
+      board.accounts << account unless board.accounts.include?(account)
+      render json: board
     else
       render json: {errors: "Unable to add owner!"}
     end
@@ -65,7 +65,7 @@ class BoardsController < ApplicationController
   private
 
   def board_params
-    params.require(:board).permit(:title, :id,
+    params.require(:board).permit(:title, :id, :currentcolor,
       elements_attributes: [:x, :y, :content, :height, :width, :bgcolor, :EID])
   end
 end
