@@ -65,10 +65,10 @@ class BoardsController < ApplicationController
     account = Account.find(Auth.decode(request.headers['token'])["account_id"])
     if account
       board = Board.find(params[:id])
-      if board
+      if board && (board.public || (board.accounts.include? account))
         render json: board
       else
-        render json: {error: "No board found"}, status: 401
+        render json: {error: "No board found or board is private"}, status: 401
       end
     else
       render json: {error: "Couldn't find user"}, status: 401
