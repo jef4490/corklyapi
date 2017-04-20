@@ -17,7 +17,20 @@ class BoardsController < ApplicationController
       board.accounts << account unless board.accounts.include?(account)
       render json: board
     else
-      render json: {errors: "Unable to add owner!"}
+      render json: {errors: "Unable to add collaborator"}, status: 401
+    end
+  end
+
+  def publish
+    account = Account.find(Auth.decode(request.headers['token'])["account_id"])
+    board = Board.find(params[:id])
+    if account && board && (account.boards.include? board)
+      board.slugify(account) unless !!board.slug
+      board.public = true
+      board.save
+      render json: board
+    else
+      render json: {errors: "Unable to make public"}, status: 401
     end
   end
 
