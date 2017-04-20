@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
 
   def new
-    byebug
+
   end
 
   def create
