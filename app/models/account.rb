@@ -1,13 +1,19 @@
 class Account < ApplicationRecord
   has_secure_password
 
+  validates :email, uniqueness: true
+  validates :username, uniqueness: true
+
   has_many :teams
   has_many :boards, through: :teams
 
   # validates :email, uniqueness: true
-  def self.authenticate(username, password)
-    account = Account.find_by(username: username)
-    account && account.authenticate(password)
+  def self.authenticate(identifier, password)
+    username = Account.find_by(username: identifier)
+    username.authenticate(password) if username
+    email = Account.find_by(email: identifier)
+    email.authenticate(password) if email
+    (username && username.authenticate(password)) || (email && email.authenticate(password))
   end
 
 end
