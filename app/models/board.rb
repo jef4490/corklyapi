@@ -12,6 +12,7 @@ class Board < ApplicationRecord
 
   def slugify(account)
     slug = self.title.downcase.gsub(" ", "-")
+    #slug = get rid of anything that is not alphanumeric
     counter = 1
     until !account.boards.pluck(:slug).include? slug do
       slug=slug+"-"+counter.to_s
