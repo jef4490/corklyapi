@@ -11,7 +11,8 @@ class Board < ApplicationRecord
   end
 
   def slugify(account)
-    slug = self.title.downcase.gsub(" ", "-")
+    spaced_slug = self.title.downcase.gsub(/[^-0-9a-zA-Z\ ]/, "")
+    slug = spaced_slug.gsub(" ", "-")
     #slug = get rid of anything that is not alphanumeric
     counter = 1
     until !account.boards.pluck(:slug).include? slug do
