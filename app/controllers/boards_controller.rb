@@ -4,17 +4,25 @@ class BoardsController < ApplicationController
   end
 
   def destroy
+    account = Account.find(Auth.decode(request.headers['token'])["account_id"])
     id = params[:id]
     board = Board.find(params[:id])
-    board.destroy
-    render json: id
+    if account && board && (account.boards.include? board)
+      account.boards.delete(board)
+      account.save
+      board.destroy if board.accounts.count==0
+      render json: id
+    else
+      render json: {errors: "Unable to delete board"}, status: 401
+    end
   end
 
   def add_owner
+    account = Account.find(Auth.decode(request.headers['token'])["account_id"])
     board = Board.find(params[:id])
-    account = Account.find(params[:account_id])
-    if account && board
-      board.accounts << account unless board.accounts.include?(account)
+    collab = Account.find(params[:account_id])
+    if account && board && collab && board.accounts.include?(account)
+      board.accounts << collab unless board.accounts.include?(collab)
       render json: board
     else
       render json: {errors: "Unable to add collaborator"}, status: 401
@@ -36,13 +44,13 @@ class BoardsController < ApplicationController
 
   def update
     account = Account.find(Auth.decode(request.headers['token'])["account_id"])
-    if account
-      board = Board.find(params[:board][:id])
+    board = Board.find(params[:board][:id])
+    if account && board && (account.boards.include? board)
       Element.where(["board_id = ?", board.id]).delete_all
       board.update(board_params)
       render json: board
     else
-      render json: {error: "Couldn't find user"}, status: 401
+      render json: {error: "Unable to update board"}, status: 401
     end
   end
 
@@ -63,12 +71,11 @@ class BoardsController < ApplicationController
 
   def show_public
     # byebug
-    account = Account.find(Auth.decode(request.headers['token'])["account_id"])
-    if account
-      board = Board.find_by(slug: params[:slug])
+    board = Board.find_by(slug: params[:slug])
+    if board
       render json: board
     else
-      render json: {error: "No board found or board is private"}, status: 401
+      render json: {error: "No board found"}, status: 401
     end
   end
 
