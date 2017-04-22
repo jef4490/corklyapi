@@ -19,6 +19,7 @@ class Board < ApplicationRecord
       slug=slug+"-"+counter.to_s
       counter+=1
     end
+    self.url = "/#{account.username}/#{slug}"
     self.slug = slug
   end
 
