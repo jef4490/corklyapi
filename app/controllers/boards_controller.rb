@@ -70,7 +70,6 @@ class BoardsController < ApplicationController
   end
 
   def show_public
-    # byebug
     board = Board.find_by(slug: params[:slug])
     if board
       render json: board
@@ -97,6 +96,6 @@ class BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:title, :id, :currentcolor,
-      elements_attributes: [:x, :y, :content, :height, :width, :bgcolor, :EID, :zIndex])
+      elements_attributes: [:x, :y, :content, :height, :width, :bgcolor, :EID, :zIndex, :is_image, :image_blob])
   end
 end
