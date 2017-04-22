@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420160246) do
+ActiveRecord::Schema.define(version: 20170421213956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20170420160246) do
     t.datetime "image_updated_at"
     t.string   "bgcolor"
     t.integer  "zIndex"
+    t.string   "image_blob"
+    t.boolean  "is_image",           default: false
   end
 
   create_table "teams", force: :cascade do |t|
