@@ -3,6 +3,7 @@ class Board < ApplicationRecord
   has_many :accounts, through: :teams
   has_many :elements, :dependent => :destroy
   accepts_nested_attributes_for :elements
+  validates :title, presence: true
 
   before_create :sanitize
 

@@ -44,7 +44,7 @@ class BoardsController < ApplicationController
 
   def update
     account = Account.find(Auth.decode(request.headers['token'])["account_id"])
-    board = Board.find(params[:board][:id])
+    board = Board.find(params[:id])
     if account && board && (account.boards.include? board)
       Element.where(["board_id = ?", board.id]).delete_all
       board.update(board_params)
