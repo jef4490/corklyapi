@@ -36,7 +36,7 @@ RSpec.describe Board, :type => :model do
 
   it "expects Board to have a slug-based url if made public" do
     board = Board.create!(title: "this is a brand new board")
-    account = Account.create!(username: "jeff", password: "1234")
+    account = Account.create!(username: "jeff", password: "1234", email: "12@34.com")
     board.slugify(account)
     expect(!!board.url).to eq(true)
     expect(board.url).to include(board.slug, account.username)
