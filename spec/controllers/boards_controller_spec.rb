@@ -220,9 +220,6 @@ RSpec.describe BoardsController, :type => :controller do
       post :add_owner, params: {id: @board.id, account_id: @sarah.id}
       expect(@board.accounts.length).to eq(2)
     end
-
-
   end
-
 
 end
