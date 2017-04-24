@@ -18,7 +18,6 @@ RSpec.describe RegistrationsController, :type => :controller do
       post :create, params: {account: {username: @account.username, password: @account.password}}
       expect(response.status).to eq(401)
     end
-
   end
 
 end
