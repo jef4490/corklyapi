@@ -1,8 +1,8 @@
 class Account < ApplicationRecord
   has_secure_password
 
-  validates :email, uniqueness: true
-  validates :username, uniqueness: true
+  validates :email, uniqueness: true, presence: true
+  validates :username, uniqueness: true, presence: true
 
   has_many :teams
   has_many :boards, through: :teams

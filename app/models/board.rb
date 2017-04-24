@@ -3,6 +3,7 @@ class Board < ApplicationRecord
   has_many :accounts, through: :teams
   has_many :elements, :dependent => :destroy
   accepts_nested_attributes_for :elements
+  validates :title, presence: true
 
   before_create :sanitize
 
@@ -13,7 +14,6 @@ class Board < ApplicationRecord
   def slugify(account)
     spaced_slug = self.title.downcase.gsub(/[^-0-9a-zA-Z\ ]/, "")
     slug = spaced_slug.gsub(" ", "-")
-    #slug = get rid of anything that is not alphanumeric
     counter = 1
     until !account.boards.pluck(:slug).include? slug do
       slug=slug+"-"+counter.to_s
