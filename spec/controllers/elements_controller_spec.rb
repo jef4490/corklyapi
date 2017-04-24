@@ -12,10 +12,10 @@ RSpec.describe ElementsController, :type => :controller do
       expect(response.body).to include(@phones_numbers.content)
     end
 
-    # it "has a 404 status code for an element that does not exist" do
-    #   get :show, params: {id: 89}
-    #   expect(response.status).to eq(200)
-    # end
+    it "has a 404 status code for an element that does not exist" do
+      get :show, params: {id: 89}
+      expect(response.status).to eq(404)
+    end
 
   end
 end

@@ -1,6 +1,6 @@
 class ElementsController < ApplicationController
   def show
-    element = Element.find(params[:id])
+    element = Element.find_by(id: params[:id])
     if element
       render json: element
     else
