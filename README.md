@@ -1,25 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the Rails Back End for the Corkly Application. The front end sibling can be found at https://github.com/mwei2509/corkly-react.
 
-Things you may want to cover:
+Features of this API include:
 
-* Ruby version
+- Serialized JSON for requested data
 
-* System dependencies
+- ORM through ActiveRecord
 
-* Configuration
+- JWT Authentication Integration
 
-* Database creation
+- Unit & Controller Testing Coverage
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# corklyapi
+- PostgreSQL Database
